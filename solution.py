@@ -21,6 +21,30 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+    rows = 'ABCDEFGHI'
+    cols = '123456789'
+    boxes = cross(rows, cols)
+
+    row_units = [cross(r, cols) for r in rows]
+    column_units = [cross(rows, c) for c in cols]
+    square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
+    unitlist = row_units + column_units + square_units
+
+    for unit in unitlist:
+        found_values = {}
+        for element in unit:
+            if values[element] in found_values:
+                first_twin = found_values[values[element]]
+                del found_values[values[element]]
+                second_twin = element
+                for affected_element in unit:
+                    if affected_element != first_twin and affected_element != second_twin:
+                        for digit in values[element]:
+                            values[affected_element] = values[affected_element].replace(digit,'')
+            elif len(values[element]) == 2:
+                found_values[values[element]]=element
+    return values
+
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
