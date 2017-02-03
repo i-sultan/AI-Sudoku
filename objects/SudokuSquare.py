@@ -43,10 +43,13 @@ def AAfilledRoundedRect(surface,rect,color,radius=0.4):
 
 class SudokuSquare:
     """A sudoku square class."""
-    def __init__(self, number=None, offsetX=0, offsetY=0, edit="Y", xLoc=0, yLoc=0):
+    def __init__(self, initial_value = False, number=None, offsetX=0, offsetY=0, edit="Y", xLoc=0, yLoc=0):
         if number != None:
             number = str(number)
-            self.color = (2, 204, 186)
+            if(initial_value):
+                self.color = (248, 22, 2)
+            else:
+                self.color = (2, 204, 186)
         else:
             number = ""
             self.color = (255, 255, 255)

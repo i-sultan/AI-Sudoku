@@ -10,7 +10,6 @@ rows = 'ABCDEFGHI'
 def play(values_list):
     pygame.init()
 
-
     size = width, height = 700, 700
     screen = pygame.display.set_mode(size)
 
@@ -21,10 +20,11 @@ def play(values_list):
     # The puzzleNumber sets a seed so either generate
     # a random number to fill in here or accept user
     # input for a duplicatable puzzle.
-
+    theSquares = []
+    index = 0
+    already_rendered = []
     for values in values_list:
         pygame.event.pump()
-        theSquares = []
         initXLoc = 0
         initYLoc = 0
         startX, startY, editable, number = 0, 0, "N", 0
@@ -44,8 +44,11 @@ def play(values_list):
                     number = None
                 else:
                     number = int(string_number)
-                theSquares.append(SudokuSquare.SudokuSquare(number, startX, startY, editable, x, y))
+                if number and (x,y) not in already_rendered:
+                    theSquares.append(SudokuSquare.SudokuSquare(index == 0, number, startX, startY, editable, x, y))
+                    already_rendered.append((x,y))
 
+        index += 1
         screen.blit(background_image, (0, 0))
         for num in theSquares:
             num.draw()
@@ -53,6 +56,7 @@ def play(values_list):
         pygame.display.flip()
         pygame.display.update()
         clock.tick(5)
+        
 
     # leave game showing until closed by user
     while True:

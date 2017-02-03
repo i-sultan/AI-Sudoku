@@ -3,7 +3,7 @@ from PySudoku import play
 def visualize_assignments(assignments):
     """ Visualizes the set of assignments created by the Sudoku AI"""
     last_assignment = None
-    filtered_assignments = []
+    filtered_assignments = [assignments[0]]
 
     for i in range(len(assignments)):
         if last_assignment:

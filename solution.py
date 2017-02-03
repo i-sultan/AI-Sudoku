@@ -5,6 +5,7 @@ def assign_value(values, box, value):
     Please use this function to update your values dictionary!
     Assigns a value to a given box. If it updates the board record it.
     """
+
     values[box] = value
     if len(value) == 1:
         assignments.append(values.copy())
@@ -40,7 +41,7 @@ def naked_twins(values):
                 for affected_element in unit:
                     if affected_element != first_twin and affected_element != second_twin:
                         for digit in values[element]:
-                            values[affected_element] = values[affected_element].replace(digit,'')
+                            values = assign_value(values, affected_element, values[affected_element].replace(digit,''))
             elif len(values[element]) == 2:
                 found_values[values[element]]=element
     return values
@@ -178,7 +179,6 @@ if __name__ == '__main__':
 
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
     display(solve(diag_sudoku_grid))
-
     try:
         from visualize import visualize_assignments
         visualize_assignments(assignments)
